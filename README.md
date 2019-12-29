@@ -65,13 +65,15 @@ Unordered maps are associative containers that store elements formed by the comb
 In an unordered_map, the key value is generally used to uniquely identify the element, while the mapped value is an object with the content associated to this key. Types of key and mapped value may differ.  
 Internally, the elements in the unordered_map are not sorted in any particular order with respect to either their key or mapped values, but organized into buckets depending on their hash values to allow for fast access to individual elements directly by their key values (with a constant average time complexity on average).  
 unordered_map containers are faster than map containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.  
-Unordered maps implement the direct access operator (operator[]) which allows for direct access of the mapped value using its keyvalue as argument.  
+Unordered maps implement the direct access operator (operator[]) which allows for direct access of the mapped value using its keyvalue as argument. 
+```c
 template < class Key,  
            class T,  
            class Hash = hash<Key>,  
            class Pred = equal_to<Key>,  
            class Alloc = allocator< pair<const Key,T> >  
            > class unordered_map;  
+```
 
 natMatchFlowHash is a hash function: flowIp of low 8bits + flowPort of low 8bits  
 So the total number of  buckets is (2^16-1)   
