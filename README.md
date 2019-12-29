@@ -20,12 +20,12 @@ The first ip, port pair is original ip and port that should be translated to the
 10.0.1.2:\*192.168.0.1:80  
 
 The FLOW file will describe the incoming flows through your NAT. The format of each line will be as so  
-<ip>:<port>  
+\<ip\>:\<port\>  
 The ip,port pair is the incoming flow that may or may not be modified by your NAT. There cannot be a “\*” in the input for the flow. For example, the following is a valid input  
 192.168.0.1:8081  
 
 Output  
-The output to your program should be one file; OUTPUT.  
+The output to your program should be one file.  
 The ouput file should have one entry corresponding to each line in the FLOW file. If there is a match, that line should output the original ip, port pair and the translated ip, port pair. If there is no match, the program should output that there is no NAT entry for that ip, port pair.  
 You may assume that the input file contains only valid, well-formed entries. A sample input NAT and FLOW file as well as the corresponding sample output for those two inputs are below.  
 Sample Inputs  
