@@ -3,12 +3,12 @@ This program will read a list of NAT entries and a list of flows, and output the
 So MUST have two files named *natfile* and *flowfile*
 
 ## How to compile and run
-1. g++ -c simpleNat.cpp -std=c++11
-2. g++ -o simpleNat simpleNat.o
-3. ./simpleNat
+g++ -c simpleNat.cpp -std=c++11  
+g++ -o simpleNat simpleNat.o  
+./simpleNat  
 
 ## Description
-Input: *natfile*
+Input: *natfile*  
 The inputs to your program should be two files; NAT and FLOW.
 The NAT file will describe the translations for your NAT Table. The format of each line will be as so:
 <ip>:<port>,<ip>:<port>
@@ -22,7 +22,6 @@ The first ip, port pair is original ip and port that should be translated to the
 The FLOW file will describe the incoming flows through your NAT. The format of each line will be as so
 <ip>:<port>
 The ip,port pair is the incoming flow that may or may not be modified by your NAT. There cannot be a “\*” in the input for the flow. For example, the following is a valid input
-
 192.168.0.1:8081
 
 Output
@@ -32,13 +31,13 @@ You may assume that the input file contains only valid, well-formed entries. A s
 Sample Inputs
 
 NAT File
-10.0.1.1:8080,192.168.0.1:80
-10.0.1.1:8084,192.168.0.2:8080
-10.0.1.1:8086,192.168.0.4:80
-10.0.1.1:8082,192.168.0.3:80
-10.0.1.2:8080,1.1.1.1:1
-\*:21,1.2.3.4:12
-10.11.12.13:\*,40.100.20.7:3389
+10.0.1.1:8080,192.168.0.1:80  
+10.0.1.1:8084,192.168.0.2:8080  
+10.0.1.1:8086,192.168.0.4:80  
+10.0.1.1:8082,192.168.0.3:80  
+10.0.1.2:8080,1.1.1.1:1  
+\*:21,1.2.3.4:12  
+10.11.12.13:\*,40.100.20.7:3389  
 
 FLOW File
 10.0.1.1:8080
