@@ -64,13 +64,13 @@ No nat match for 34.65.12.9:22
 10.0.1.2:8080 -> 1.1.1.1:1  
 
 ## Design
-Why is unordered_maps NOT map?  
+### Why is unordered_maps NOT map?  
 Unordered maps are associative containers that store elements formed by the combination of a key value and a mapped value, and which allows for fast retrieval of individual elements based on their keys.  
 In an unordered_map, the key value is generally used to uniquely identify the element, while the mapped value is an object with the content associated to this key. Types of key and mapped value may differ.  
 Internally, the elements in the unordered_map are not sorted in any particular order with respect to either their key or mapped values, but organized into buckets depending on their hash values to allow for fast access to individual elements directly by their key values (with a constant average time complexity on average).  
 unordered_map containers are faster than map containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.  
 **Unordered map is O(1) while map is O(logn).**     
-In this NAT program, unordered_map contains three objects, natMatchFlow, natTransTo and natMatchFlowHash. Object natMatchFlow is used to present the first ip, port pair in NAT file.  natTransTo is used to present the second ip, port pair in NAT file which is translated to. natMatchFlowHash is a hash function which presents **the map between key(natMatchFlow) and bucket(natTransTo)**.  
+In this NAT program, unordered_map contains three objects, **natMatchFlow**, **natTransTo** and **natMatchFlowHash**. Object natMatchFlow is used to present the first ip, port pair in NAT file.  natTransTo is used to present the second ip, port pair in NAT file which is translated to. natMatchFlowHash is a hash function which presents **the map between key(natMatchFlow) and bucket(natTransTo)**.  
 ```C
 unordered_map<natMatchFlow, natTransTo, natMatchFlowHash> natRules
 ```
@@ -84,12 +84,18 @@ template < class Key,
            class Alloc = allocator< pair<const Key,T> >  
            > class unordered_map;  
 ```
-The hash function is a unary function that takes an object of type key_type as argument and returns a unique value of type size_t based on it
+The hash function is a unary function that takes an object of type key_type as argument and returns a unique value of type size_t based on it.  
 natMatchFlowHash is a hash function: flowIp of low 8bits + flowPort of low 8bits  
 So the total number of  buckets is (2^16-1)   
 for example: 10.0.1.1:8080  
 flowIp of low 8bits is 1 and flowPort of low 8bits is 80  
-(flowIp of low 8bits)<<8 | (flowPort of low 8bits)&0x000000ff  
+(flowIp of low 8bits)<<8 | ((flowPort of low 8bits)&0x000000ff)  
 = 256+144 = 400  
 **NOTE:Define a good hash function is a worthy thinking problem to avoid hash collision. In here, the key I only use is flowIp of low 8bits + flowPort of low 8bits because I think the number of  buckets is (2^16-1) is enough for this simple NAT Program**
+
+### How to handle the wildcard?
+I defined a search sequence. At first, search exact match, e.g., 10.0.1.1:8080, if not found, search ip is wildcard, e.g., \*.8080, if still not found, search port is wildcard, e.g., 10.0.1.1:\*. If still failed to find, output no nat match for.
+
+
+
 
