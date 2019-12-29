@@ -91,7 +91,8 @@ for example: 10.0.1.1:8080
 flowIp of low 8bits is 1 and flowPort of low 8bits is 80  
 (flowIp of low 8bits)<<8 | ((flowPort of low 8bits)&0x000000ff)  
 = 256+144 = 400  
-**NOTE:Define a good hash function is a worthy thinking problem to avoid hash collision. In here, the key I only use is flowIp of low 8bits + flowPort of low 8bits because I think the number of  buckets is (2^16-1) is enough for this simple NAT Program**
+**NOTE:  
+Define a good hash function is a worthy thinking problem to avoid hash collision. In here, the key I only use is flowIp of low 8bits + flowPort of low 8bits because I think the number of  buckets is (2^16-1) is enough for this simple NAT Program**
 
 ### How to handle the wildcard?
 I defined a search sequence. At first, search exact match, e.g., 10.0.1.1:8080, if not found, search ip is wildcard, e.g., \*.8080, if still not found, search port is wildcard, e.g., 10.0.1.1:\*. If still failed to find, output no nat match for.
