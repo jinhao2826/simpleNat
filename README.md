@@ -11,7 +11,7 @@ g++ -o simpleNat simpleNat.o
 Input: *natfile*    
 The inputs to your program should be two files; NAT and FLOW.  
 The NAT file will describe the translations for your NAT Table. The format of each line will be as so:  
-<ip>:<port>,<ip>:<port>  
+\<ip\>:\<port\>,\<ip\>:\<port\>  
 
 The first ip, port pair is original ip and port that should be translated to the second ip, port pair. The ip or the port (not both) can have a “\*” instead of an ip or port. The star means that anything should match that value. For example, the following are all valid inputs:   
 
